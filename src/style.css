@@ -18,16 +18,40 @@ body {
     position: relative;
 }
 
-.san {
+.nose {
     border: 10px solid red;
     border-color: red transparent transparent;
     border-bottom: none;
     width: 0;
     height: 0;
-    position: absolute;
+    position: relative;
     left: 50%;
     top: 145px;
-    transform: translateX(-50%);
+    margin-left: -10px;
+    z-index: 10;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    33% {
+        transform: rotate(8deg);
+    }
+
+    66% {
+        transform: rotate(-8deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.nose:hover {
+    transform-origin: center bottom;
+    animation: wave 300ms infinite linear;
 }
 
 .yuan {
@@ -52,6 +76,7 @@ body {
     background-color: #2e2e2e;
 }
 
+
 .eye::after {
     content: "";
     border: 1px solid #000;
@@ -62,6 +87,21 @@ body {
     position: absolute;
     left: 6px;
     top: 2px;
+    animation: eyeLeft 2s infinite;
+}
+
+@keyframes eyeLeft {
+    0% {
+        left: 6px;
+    }
+
+    50% {
+        left: 30px;
+    }
+
+    100% {
+        left: 6px;
+    }
 }
 
 .eye.left {
@@ -80,6 +120,8 @@ body {
     top: 170px;
     margin-left: -75px;
 }
+
+
 
 .mouth .up .lip {
     position: absolute;
@@ -134,4 +176,40 @@ body {
     transform: translateX(-50%);
     border-radius: 50%;
     background-color: #ff485f;
+}
+
+.face {
+    position: absolute;
+    left: 50%;
+    border: 3px solid black;
+    width: 88px;
+    height: 88px;
+    top: 200px;
+    margin-left: -44px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.face.left {
+    transform: translateX(-160px);
+}
+
+.face>img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.face.left>img {
+    transform: rotate(180deg);
+    transform-origin: 0 0;
+}
+
+.face.right {
+    transform: translateX(160px);
+}
+
+.face.right>img {
+    transform: rotateX(180deg);
+    transform-origin: 0 0;
 }
