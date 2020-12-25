@@ -1,21 +1,19 @@
-* {
+const string = `
+.skin * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-*::after,
-*::before {
+.skin *::after,
+.skin *::before {
     box-sizing: border-box;
-}
-
-body {
-    background-color: #ffe600;
-    min-height: 100vh;
 }
 
 .skin {
     position: relative;
+    background-color: #ffe600;
+    min-height: 50vh;
 }
 
 .nose {
@@ -150,7 +148,7 @@ body {
     width: 100%;
     height: 230px;
     position: absolute;
-    top: 5px;
+    top: 8px;
     overflow: hidden;
 }
 
@@ -212,3 +210,5 @@ body {
     transform: rotateX(180deg);
     transform-origin: 0 0;
 }
+`
+export default string;
