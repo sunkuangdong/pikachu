@@ -134,24 +134,73 @@ var _css = _interopRequireDefault(require("./css"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var n = 1;
-demo1.innerText = _css.default.substr(0, n);
-demo2.innerHTML = _css.default.substr(0, n);
-var timer = setInterval(function () {
-  if (n > _css.default.length) {
-    window.clearInterval(timer);
-    return;
+var player = {
+  n: 1,
+  timer: undefined,
+  time: 50,
+  ui: {
+    demo1: document.querySelector('#demo1'),
+    demo2: document.querySelector('#demo2')
+  },
+  events: {
+    "#btnPause": 'pause',
+    "#btnPlay": 'play',
+    "#btnSlow": 'slow',
+    "#btnNormal": 'normal',
+    "#btnFast": 'fast'
+  },
+  init: function init() {
+    player.ui.demo1.innerText = _css.default.substr(0, player.n);
+    player.ui.demo2.innerHTML = _css.default.substr(0, player.n);
+    player.bindEvents();
+    player.play();
+  },
+  bindEvents: function bindEvents() {
+    for (var key in player.events) {
+      if (player.events.hasOwnProperty(key)) {
+        var value = player.events[key];
+        document.querySelector(key).onclick = player[value];
+      }
+    }
+  },
+  run: function run() {
+    if (player.n > _css.default.length) {
+      window.clearInterval(player.timer);
+      return;
+    }
+
+    player.n += 1;
+    player.ui.demo1.innerText = _css.default.substr(0, player.n);
+    player.ui.demo2.innerHTML = _css.default.substr(0, player.n);
+    player.ui.demo1.scrollTop = player.ui.demo1.scrollHeight;
+  },
+  play: function play() {
+    window.clearInterval(player.timer);
+    player.timer = setInterval(player.run, player.time);
+  },
+  clear: function clear() {
+    window.clearInterval(player.timer);
+  },
+  pause: function pause() {
+    window.clearInterval(player.timer);
+  },
+  slow: function slow() {
+    player.pause();
+    player.time = 300;
+    player.play();
+  },
+  normal: function normal() {
+    player.pause();
+    player.time = 100;
+    player.play();
+  },
+  fast: function fast() {
+    player.pause();
+    player.time = 0;
+    player.play();
   }
-
-  n += 1;
-  demo1.innerText = _css.default.substr(0, n);
-  demo2.innerHTML = _css.default.substr(0, n);
-  demo1.scrollTop = 999999999;
-}, 1);
-
-btnPause.onclick = function () {
-  window.clearInterval(timer);
 };
+player.init();
 },{"./css":"css.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -180,7 +229,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "9142" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "9531" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
